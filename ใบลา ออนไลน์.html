@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ใบลาอิเล็กทรอนิกส์ - SP-H-002-03</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700;900&family=Noto+Sans+Thai:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cyber-yellow: #F9F002;
+    --cyber-yellow-soft: #fff94d;
+    --deep-onyx: #0a0a0c;
+    --glass-bg: rgba(255,255,255,0.04);
+    --glass-border: rgba(249,240,2,0.18);
+  }
+
+  body {
+    font-family: 'Noto Sans Thai', 'Kanit', sans-serif;
+    background: var(--deep-onyx);
+    color: #f5f5f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .blob {
+    position: fixed;
+    filter: blur(70px);
+    opacity: 0.35;
+    z-index: 0;
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+    animation: morph 12s ease-in-out infinite alternate;
+  }
+  .blob-1 { width: 70vw; height: 70vw; background: var(--cyber-yellow); top: -20vw; left: -20vw; }
+  .blob-2 { width: 60vw; height: 60vw; background: #e6de00; bottom: -25vw; right: -20vw; animation-delay: 3s; }
+  @keyframes morph {
+    0%   { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; transform: rotate(0deg) scale(1); }
+    50%  { border-radius: 65% 35% 40% 60% / 60% 40% 60% 40%; transform: rotate(20deg) scale(1.08); }
+    100% { border-radius: 30% 70% 55% 45% / 35% 65% 35% 65%; transform: rotate(-15deg) scale(1); }
+  }
+
+  .wrap { position: relative; z-index: 1; max-width: 520px; margin: 0 auto; padding: 32px 18px 60px; }
+
+  .badge {
+    display: inline-block;
+    background: var(--cyber-yellow);
+    color: var(--deep-onyx);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    padding: 6px 18px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: 'Kanit', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.1rem, 9vw, 2.9rem);
+    line-height: 1.08;
+    color: #fff;
+    text-shadow: 0 0 40px rgba(249,240,2,0.25);
+    margin-bottom: 6px;
+  }
+  h1 span { color: var(--cyber-yellow); }
+  .subtitle { font-size: 0.95rem; color: rgba(245,245,240,0.6); margin-bottom: 28px; }
+
+  .card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    padding: 26px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+  }
+  .section-title {
+    font-family: 'Kanit', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--cyber-yellow);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--cyber-yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--cyber-yellow);
+  }
+
+  .field { margin-bottom: 16px; }
+  label {
+    display: block;
+    font-size: 0.85rem;
+    color: rgba(245,245,240,0.75);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  label .req { color: var(--cyber-yellow); }
+  label .opt { color: rgba(245,245,240,0.4); font-size: 0.78rem; }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.25s ease;
+  }
+  textarea {
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    resize: vertical;
+    min-height: 90px;
+    transition: all 0.25s ease;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--cyber-yellow);
+    box-shadow: 0 0 0 4px rgba(249,240,2,0.15);
+    background: rgba(255,255,255,0.09);
+  }
+  input[readonly] {
+    background: rgba(249,240,2,0.07);
+    border-color: rgba(249,240,2,0.3);
+    color: var(--cyber-yellow-soft);
+  }
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--cyber-yellow) 50%), linear-gradient(135deg, var(--cyber-yellow) 50%, transparent 50%);
+    background-position: calc(100% - 24px) center, calc(100% - 18px) center;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+  }
+  select option { background: #1a1a1a; color: #fff; }
+
+  .status-msg { font-size: 0.82rem; margin-top: 8px; padding: 0 6px; min-height: 16px; }
+  .status-ok { color: #9dff5c; }
+  .status-err { color: #ff5c5c; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* ---- Quick Hour Buttons ---- */
+  .quick-hours {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .hour-btn {
+    position: relative;
+    padding: 16px 8px;
+    border-radius: 20px;
+    border: 1.5px solid rgba(249,240,2,0.25);
+    background: rgba(249,240,2,0.06);
+    color: var(--cyber-yellow-soft);
+    font-family: 'Kanit', sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1.4;
+  }
+  .hour-btn small {
+    display: block;
+    font-weight: 400;
+    font-size: 0.72rem;
+    color: rgba(245,245,240,0.5);
+    margin-top: 2px;
+  }
+  .hour-btn:active { transform: scale(0.95); }
+  .hour-btn.active {
+    background: var(--cyber-yellow);
+    color: var(--deep-onyx);
+    border-color: var(--cyber-yellow);
+    box-shadow: 0 0 20px rgba(249,240,2,0.45);
+  }
+  .hour-btn.active small { color: rgba(10,10,12,0.65); }
+
+  .hour-hint {
+    font-size: 0.78rem;
+    color: rgba(245,245,240,0.45);
+    margin-top: 8px;
+    padding: 0 6px;
+  }
+
+  /* ---- Light Beam Button ---- */
+  .btn-wrap { text-align: center; margin-top: 28px; }
+  .light-beam-btn {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding: 18px 20px;
+    border-radius: 999px;
+    border: none;
+    background: var(--deep-onyx);
+    color: var(--cyber-yellow);
+    font-family: 'Kanit', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    isolation: isolate;
+    overflow: hidden;
+    transition: color 0.3s ease, background 0.3s ease;
+    --angle: 0deg;
+  }
+  .light-beam-btn::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 999px;
+    padding: 3px;
+    background: conic-gradient(from var(--angle), transparent 0%, var(--cyber-yellow) 12%, transparent 24%, transparent 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: rotate-beam 2.8s linear infinite;
+    z-index: -1;
+  }
+  @keyframes rotate-beam { to { --angle: 360deg; } }
+  .light-beam-btn:hover {
+    background: var(--cyber-yellow);
+    color: var(--deep-onyx);
+    box-shadow: 0 0 35px 6px rgba(249,240,2,0.55);
+  }
+  .light-beam-btn:active { transform: scale(0.98); }
+  .light-beam-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .thankyou { display: none; text-align: center; padding: 50px 20px; }
+  .thankyou.show { display: block; }
+  .check-circle {
+    width: 80px; height: 80px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: var(--cyber-yellow);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 50px rgba(249,240,2,0.5);
+  }
+  .check-circle svg { width: 40px; height: 40px; }
+  .thankyou h2 {
+    font-family: 'Kanit', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  .thankyou p { color: rgba(245,245,240,0.75); font-size: 1rem; line-height: 1.7; }
+
+  @media (max-width: 380px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<div class="wrap">
+  <span class="badge">SP-H-002-03</span>
+  <h1>ใบลา<span>อิเล็กทรอนิกส์</span></h1>
+  <div class="subtitle">Leave Application Form</div>
+
+  <form id="leaveForm" action="https://docs.google.com/forms/d/e/1FAIpQLSewydTX1ychhTl3Rx8-tvas-XI6NJh-2zZkXcqNLxL_-fHeog/formResponse" method="POST" target="hidden_iframe">
+
+    <div class="card">
+      <div class="section-title">ข้อมูลพนักงาน</div>
+
+      <div class="field">
+        <label>รหัสประจำตัวพนักงาน (Employee ID) <span class="req">*</span></label>
+        <input type="text" id="empId" placeholder="กรอกรหัสพนักงาน เช่น 150344001" autocomplete="off" required>
+        <div class="status-msg" id="empStatus"></div>
+      </div>
+
+      <div class="field">
+        <label>ฝ่าย / แผนก (Division / Department)</label>
+        <input type="text" id="division" readonly placeholder="ระบบจะกรอกให้อัตโนมัติ">
+      </div>
+
+      <div class="field">
+        <label>ชื่อ - นามสกุล (Name - Surname)</label>
+        <input type="text" id="fullName" readonly placeholder="ระบบจะกรอกให้อัตโนมัติ">
+      </div>
+
+      <div class="field">
+        <label>ระบุตำแหน่งงานปัจจุบันของคุณ <span class="opt">(ไม่บังคับ)</span></label>
+        <input type="text" id="position" placeholder="ระบบจะกรอกให้อัตโนมัติ (แก้ไขได้)">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">รายละเอียดการลา</div>
+
+      <div class="field">
+        <label>วันที่ยื่นคำร้อง (Request Date) <span class="req">*</span></label>
+        <input type="date" id="requestDate" required>
+      </div>
+
+      <div class="field">
+        <label>ประเภทการลา (Leave Type) <span class="req">*</span></label>
+        <select id="leaveType" required>
+          <option value="" disabled selected>-- เลือกประเภทการลา --</option>
+          <option value="ลาป่วย">ลาป่วย</option>
+          <option value="ลากิจ">ลากิจ</option>
+          <option value="ลาพักร้อน">ลาพักร้อน</option>
+          <option value="ลาคลอด">ลาคลอด</option>
+          <option value="ลาบวช">ลาบวช</option>
+          <option value="อื่นๆ">อื่นๆ</option>
+        </select>
+      </div>
+
+      <div class="two-col">
+        <div class="field">
+          <label>วันที่เริ่มลา (Start Date) <span class="req">*</span></label>
+          <input type="date" id="startDate" required>
+        </div>
+        <div class="field">
+          <label>วันที่สิ้นสุดลา (End Date) <span class="req">*</span></label>
+          <input type="date" id="endDate" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>จำนวนชั่วโมงลา (Number of Hours) <span class="req">*</span></label>
+
+        <div class="quick-hours">
+          <div class="hour-btn" data-hours="4" onclick="setHours(4, this)">ครึ่งวัน<small>4 ชม.</small></div>
+          <div class="hour-btn" data-hours="8" onclick="setHours(8, this)">1 วัน<small>8 ชม.</small></div>
+          <div class="hour-btn" data-hours="16" onclick="setHours(16, this)">2 วัน<small>16 ชม.</small></div>
+        </div>
+
+        <input type="number" id="numHours" min="1" step="1" placeholder="หรือกรอกจำนวนชั่วโมงเอง" required>
+        <div class="hour-hint">กดปุ่มด้านบนเพื่อกรอกอัตโนมัติ หรือพิมพ์จำนวนชั่วโมงเองได้ (1 วัน = 8 ชั่วโมง)</div>
+      </div>
+
+      <div class="field">
+        <label>เหตุผล / รายละเอียดเพิ่มเติม (Reason / Remarks)</label>
+        <textarea id="reason" placeholder="ระบุเหตุผลการลา (ถ้ามี)"></textarea>
+      </div>
+    </div>
+
+    <div class="btn-wrap">
+      <button type="submit" class="light-beam-btn" id="submitBtn">ส่งใบลา (Submit)</button>
+    </div>
+
+    <input type="hidden" name="entry.1174078640" id="h_firstname">
+    <input type="hidden" name="entry.1297409902" id="h_lastname">
+    <input type="hidden" name="entry.1489552998" id="h_empid">
+    <input type="hidden" name="entry.377086095" id="h_requestdate">
+    <input type="hidden" name="entry.263357176" id="h_division">
+    <input type="hidden" name="entry.1341979884" id="h_position">
+    <input type="hidden" name="entry.1714353577" id="h_leavetype">
+    <input type="hidden" name="entry.1758833782" id="h_startdate">
+    <input type="hidden" name="entry.1273145508" id="h_enddate">
+    <input type="hidden" name="entry.1506178943" id="h_numdays">
+    <input type="hidden" name="entry.1850451454" id="h_reason">
+  </form>
+
+  <div class="card thankyou" id="thankyou">
+    <div class="check-circle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0c" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg>
+    </div>
+    <h2>ส่งใบลาสำเร็จ!</h2>
+    <p>ส่งแบบฟอร์มให้ทางหัวหน้าแผนกของท่านพิจารณาแล้ว<br>กรุณารออีเมลอนุมัติ</p>
+  </div>
+</div>
+
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+<script>
+  const employeeDB = {
+    "150344001": { division: "ฝ่ายขาย",       name: "นางสาวจินดา แย้มใส",            position: "ผู้ช่วยผู้จัดการสนับสนุนฝ่ายขาย" },
+    "160963001": { division: "ฝ่ายขาย",       name: "นายเดชอุดม สุขศิริ",             position: "วิศวกรขาย" },
+    "60565002":  { division: "ฝ่ายแอดมิน",    name: "นางสาวชาลินี บุญมา",             position: "เจ้าหน้าที่บัญชีและการเงิน" },
+    "200469001": { division: "ฝ่ายแอดมิน",    name: "นางสาวสิตา ไชยแก้ว",             position: "เจ้าหน้าที่จัดซื้อ" },
+    "230469001": { division: "ฝ่ายแอดมิน",    name: "นายธนภัทร ฉิมสะอาด",            position: "เจ้าหน้าที่ประสานงานโลจิสติคส์" },
+    "10666001":  { division: "ฝ่ายคลังสินค้า", name: "นายอนุชิต ชัยวงค์ชีวานนท์",      position: "พนักงานคลังสินค้า" },
+    "20168003":  { division: "ฝ่ายแอดมิน",    name: "นางจารุมน รัตนเพ็ชร",            position: "แม่บ้าน" },
+    "130868001": { division: "ฝ่ายแอดมิน",    name: "นายพีระภัทร ทำนาย",              position: "เจ้าหน้าที่บุคคล" },
+    "10969001":  { division: "ฝ่ายขาย",       name: "นางสาวนันทวัน ดีชื่น",           position: "เจ้าหน้าที่ประสานงานขาย" },
+    "160969001": { division: "ฝ่ายคลังสินค้า", name: "นายเตโชทัย เมพูลพัฒน์",          position: "พนักงานคลังสินค้า" },
+    "210969001": { division: "ฝ่ายขาย",       name: "นายปฏิภาณ โคตรบัว",              position: "เจ้าหน้าที่ขาย" }
+  };
+
+  const empIdInput    = document.getElementById('empId');
+  const divisionInput = document.getElementById('division');
+  const fullNameInput = document.getElementById('fullName');
+  const positionInput = document.getElementById('position');
+  const empStatus     = document.getElementById('empStatus');
+  let validEmployee   = false;
+
+  function lookupEmployee() {
+    const id = empIdInput.value.trim();
+    if (!id) {
+      empStatus.textContent = '';
+      divisionInput.value = '';
+      fullNameInput.value = '';
+      positionInput.value = '';
+      validEmployee = false;
+      return;
+    }
+    const emp = employeeDB[id];
+    if (emp) {
+      divisionInput.value = emp.division;
+      fullNameInput.value = emp.name;
+      positionInput.value = emp.position;
+      empStatus.textContent = '✓ พบข้อมูลพนักงาน: ' + emp.name;
+      empStatus.className = 'status-msg status-ok';
+      validEmployee = true;
+    } else {
+      divisionInput.value = '';
+      fullNameInput.value = '';
+      positionInput.value = '';
+      empStatus.textContent = '✕ ไม่พบรหัสพนักงานนี้ในระบบ กรุณาตรวจสอบอีกครั้ง';
+      empStatus.className = 'status-msg status-err';
+      validEmployee = false;
+    }
+  }
+
+  empIdInput.addEventListener('input', lookupEmployee);
+  empIdInput.addEventListener('blur', lookupEmployee);
+
+  document.getElementById('requestDate').value = new Date().toISOString().split('T')[0];
+
+  // ===== Quick Hour Buttons =====
+  const numHoursInput = document.getElementById('numHours');
+  const allHourBtns = document.querySelectorAll('.hour-btn');
+
+  function setHours(hours, btnEl) {
+    numHoursInput.value = hours;
+    allHourBtns.forEach(b => b.classList.remove('active'));
+    btnEl.classList.add('active');
+  }
+
+  // ถ้าผู้ใช้พิมพ์เลขเองไม่ตรงกับปุ่ม ให้ยกเลิกสถานะ active ของปุ่มทั้งหมด
+  numHoursInput.addEventListener('input', function () {
+    const val = parseFloat(numHoursInput.value);
+    let matched = false;
+    allHourBtns.forEach(b => {
+      if (parseFloat(b.dataset.hours) === val) {
+        b.classList.add('active');
+        matched = true;
+      } else {
+        b.classList.remove('active');
+      }
+    });
+  });
+
+  function splitName(full) {
+    const idx = full.lastIndexOf(' ');
+    if (idx === -1) return { first: full, last: '' };
+    return { first: full.substring(0, idx), last: full.substring(idx + 1) };
+  }
+
+  const form = document.getElementById('leaveForm');
+  const thankyou = document.getElementById('thankyou');
+  const hiddenIframe = document.getElementById('hidden_iframe');
+  let submitting = false;
+
+  form.addEventListener('submit', function (e) {
+    if (!validEmployee) {
+      e.preventDefault();
+      empStatus.textContent = '✕ กรุณากรอกรหัสพนักงานที่ถูกต้องก่อนส่งแบบฟอร์ม';
+      empStatus.className = 'status-msg status-err';
+      empIdInput.focus();
+      return;
+    }
+
+    const { first, last } = splitName(fullNameInput.value);
+
+    document.getElementById('h_firstname').value   = first;
+    document.getElementById('h_lastname').value    = last;
+    document.getElementById('h_empid').value       = empIdInput.value.trim();
+    document.getElementById('h_requestdate').value = document.getElementById('requestDate').value;
+    document.getElementById('h_division').value    = divisionInput.value;
+    document.getElementById('h_position').value    = positionInput.value;
+    document.getElementById('h_leavetype').value   = document.getElementById('leaveType').value;
+    document.getElementById('h_startdate').value   = document.getElementById('startDate').value;
+    document.getElementById('h_enddate').value     = document.getElementById('endDate').value;
+    document.getElementById('h_numdays').value     = numHoursInput.value;
+    document.getElementById('h_reason').value      = document.getElementById('reason').value;
+
+    submitting = true;
+    document.getElementById('submitBtn').disabled = true;
+    document.getElementById('submitBtn').textContent = 'กำลังส่ง...';
+  });
+
+  hiddenIframe.addEventListener('load', function () {
+    if (submitting) {
+      form.style.display = 'none';
+      thankyou.classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      submitting = false;
+    }
+  });
+</script>
+
+</body>
+</html>
